@@ -105,6 +105,9 @@ class Mode(object):
         except:
             swiftbackmeup_conf = {}
 
+        if swiftbackmeup_conf is None:
+            swiftbackmeup_conf = {}
+
         try:
             modes = swiftbackmeup_conf['modes']
         except KeyError:
@@ -124,7 +127,13 @@ class Mode(object):
 
 
     def remove(self):
-        swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
+        try:
+            swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
+        except:
+            swiftbackmeup_conf = {}
+
+        if swiftbackmeup_conf is None:
+            swiftbackmeup_conf = {}
 
         try:
             del swiftbackmeup_conf['modes'][self.name]

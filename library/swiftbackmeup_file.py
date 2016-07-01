@@ -118,13 +118,19 @@ class Item(object):
         except:
             swiftbackmeup_conf = {}
 
+        if swiftbackmeup_conf is None:
+            swiftbackmeup_conf = {}
+
         backups = []
         c_backup = None
-        for backup in swiftbackmeup_conf['backups']:
-            if backup['name'] != self.name:
-                backups.append(backup)
-            else:
-                c_backup = backup
+        try:
+            for backup in swiftbackmeup_conf['backups']:
+                if backup['name'] != self.name:
+                    backups.append(backup)
+                else:
+                    c_backup = backup
+        except KeyError:
+            pass
 
         if c_backup == l_backup: 
             self.changed = False
@@ -139,6 +145,9 @@ class Item(object):
         try:
             swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
         except:
+            swiftbackmeup_conf = {}
+
+        if swiftbackmeup_conf is None:
             swiftbackmeup_conf = {}
 
         backups = None

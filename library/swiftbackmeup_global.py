@@ -85,16 +85,29 @@ class Parameter(object):
         except:
             swiftbackmeup_conf = {}
 
-        if swiftbackmeup_conf[self.name] == self.value:
-            self.changed = False
-        else:
+        if swiftbackmeup_conf is None:
+            swiftbackmeup_conf = {}
+
+        try:
+            if swiftbackmeup_conf[self.name] == self.value:
+                self.changed = False
+        except KeyError:
+            pass
+
+        if self.changed:
             swiftbackmeup_conf[self.name] = self.value
             with open(self.config, 'w') as conf_file:
                 conf_file.write(yaml.dump(swiftbackmeup_conf))
 
 
     def remove(self):
-        swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
+        try:
+            swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
+        except:
+            swiftbackmeup_conf = {}
+
+        if swiftbackmeup_conf is None:
+            swiftbackmeup_conf = {}
 
         try:
             del swiftbackmeup_conf[self.name]
