@@ -85,11 +85,12 @@ class Parameter(object):
         except:
             swiftbackmeup_conf = {}
 
-        # TODO(spredzy) If swiftbackmeup_conf[self.name] == self.value
-        # set self.changed to false
-        swiftbackmeup_conf[self.name] = self.value
-        with open(self.config, 'w') as conf_file:
-            conf_file.write(yaml.dump(swiftbackmeup_conf))
+        if swiftbackmeup_conf[self.name] == self.value:
+            self.changed = False
+        else:
+            swiftbackmeup_conf[self.name] = self.value
+            with open(self.config, 'w') as conf_file:
+                conf_file.write(yaml.dump(swiftbackmeup_conf))
 
 
     def remove(self):
