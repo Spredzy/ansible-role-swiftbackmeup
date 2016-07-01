@@ -1,4 +1,8 @@
 ---
+- name: Install Swiftbackmeup from Pip
+  pip: name=swiftbackmeup
+
+
 - name: Configure globals for swiftbackmeup
   swiftbackmeup_global: name={{ item.key }}
                         value={{ item.value.value }}
@@ -97,27 +101,38 @@
 
 - name: Configure MariaDB items for backups
   swiftbackmeup_mariadb: name={{ item.key }}
-                            os_username={{ item.value.os_username | default(None) }}
-                            os_password={{ item.value.password | default(None) }}
-                            os_tenant_name={{ item.value.os_tenant_name | default(None) }}
-                            os_auth_url={{ item.value.os_auth_url | default(None) }}
-                            store_type={{ item.value.store_type | default(None) }}
-                            create_container={{ item.value.create_container | default(None) }}
-                            purge_container={{ item.value.purge_container | default(None) }}
-                            swift_container={{ item.value.swift_container | default(None) }}
-                            swift_pseudo_folder={{ item.value.swift_pseudo_folder | default(None) }}
-                            output_directory={{ item.value.output_directory | default(None) }}
-                            clean_local_copy={{ item.value.clean_local_copy | default(None) }}
-                            backup_filename={{ item.value.backup_filename | default(None) }}
-                            backup_filename_prefix={{ item.value.backup_filename_prefix | default(None) }}
-                            backup_filename_suffix={{ item.value.backup_filename_suffix | default(None) }}
-                            subscriptions={{ item.value.subscriptions | default(None) }}
-                            dump_options={{ item.value.dump_options | default(None) }}
-                            database={{ item.value.database }}
-                            user={{ item.value.user | default(None) }}
-                            password={{ item.value.password | default(None) }}
-                            host={{ item.value.host | default(None) }}
-                            port={{ item.value.port | default(None) }}
-                            config={{ item.value.config | default('/etc/swiftbackmeup.conf') }}
-                            state={{ item.value.state | default('present') }}
+                         os_username={{ item.value.os_username | default(None) }}
+                         os_password={{ item.value.password | default(None) }}
+                         os_tenant_name={{ item.value.os_tenant_name | default(None) }}
+                         os_auth_url={{ item.value.os_auth_url | default(None) }}
+                         store_type={{ item.value.store_type | default(None) }}
+                         create_container={{ item.value.create_container | default(None) }}
+                         purge_container={{ item.value.purge_container | default(None) }}
+                         swift_container={{ item.value.swift_container | default(None) }}
+                         swift_pseudo_folder={{ item.value.swift_pseudo_folder | default(None) }}
+                         output_directory={{ item.value.output_directory | default(None) }}
+                         clean_local_copy={{ item.value.clean_local_copy | default(None) }}
+                         backup_filename={{ item.value.backup_filename | default(None) }}
+                         backup_filename_prefix={{ item.value.backup_filename_prefix | default(None) }}
+                         backup_filename_suffix={{ item.value.backup_filename_suffix | default(None) }}
+                         subscriptions={{ item.value.subscriptions | default(None) }}
+                         dump_options={{ item.value.dump_options | default(None) }}
+                         database={{ item.value.database }}
+                         user={{ item.value.user | default(None) }}
+                         password={{ item.value.password | default(None) }}
+                         host={{ item.value.host | default(None) }}
+                         port={{ item.value.port | default(None) }}
+                         config={{ item.value.config | default('/etc/swiftbackmeup.conf') }}
+                         state={{ item.value.state | default('present') }}
   with_dict: '{{ swiftbackmeup_mariadbs }}'
+
+- name: Configure the swiftbackmeup crons (if desired)
+  cron: name={{ item.key }}
+        minute={{ item.value.minute | default('*') }}
+        hour={{ item.value.hour | default('*') }}
+        day={{ item.value.day | default('*') }}
+        month={{ item.value.month | default('*') }}
+        job={{ item.value.job | default('swiftbackmeup backup --mode daily') }}
+        state={{ item.value.state | default('present') }}
+  when: '{{ swiftbackmeup_crons is defined }}'
+  with_dict: '{{ swiftbackmeup_crons }}'
