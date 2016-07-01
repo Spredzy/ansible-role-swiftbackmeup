@@ -1,0 +1,22 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Spredzy
+  description: An Ansible module for Swiftbackmeup
+  company: "Red Hat"
+  license: "Apache 2.0"
+  min_ansible_version: 1.8
+  platforms:
+    - name: EL
+      versions:
+      - all
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - backup
+    - system

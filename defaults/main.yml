@@ -1,0 +1,48 @@
+---
+# Set global parameter for swiftbackmeup configuration file
+#
+swiftbackmeup_globals: {}
+
+
+# Set modes for swiftbackmeup
+#
+swiftbackmeup_modes:
+  daily:
+    retention: 7
+    unit: days
+    pattern: "%Y%m%d"
+  weekly:
+    retention: 28
+    unit: days
+    pattern: "%Y%m%d-%U"
+  monthly:
+    retention: 31
+    unit: days
+    pattern: "%Y%m"
+  now:
+    retention: 10
+    unit: item
+    pattern: "%Y%m%d%H%M%S"
+
+
+# Set Git items to backup
+#
+swiftbackmeup_gits: {}
+
+
+# Set File items to backup
+#
+swiftbackmeup_files: {}
+
+
+# Set PostgreSQL items to backup
+#
+swiftbackmeup_postgresqls: {}
+
+
+# Set MariaDB items to backup
+#
+swiftbackmeup_mariadbs: {}
+
+
+
