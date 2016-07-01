@@ -36,7 +36,7 @@ options:
     choices: ['present', 'absent']
     default: 'present'
     description: Wheter or not the mode should be present
-  path:
+  config:
     required: false
     description: Path of the swiftbackmeup config file, if not using the default
   name:
@@ -57,14 +57,14 @@ options:
 
 EXAMPLES = '''
 - name: Create a new mode
-  swiftbackmeup_mode: path=/etc/swiftbackmeup.conf
+  swiftbackmeup_mode: config=/etc/swiftbackmeup.conf
                       name=daily
                       retention=7
                       unit=days 
                       pattern=daily_%Y%m%d
 
 - name: Remove a mode
-  swiftbackmeup_mode: path=/etc/swiftbackmeup.conf
+  swiftbackmeup_mode: config=/etc/swiftbackmeup.conf
                       name=daily
                       ensure=absent
 '''
@@ -92,7 +92,7 @@ class Mode(object):
 
     def __init__(self, module):
         self.state = module.params['state']
-        self.path = module.params['path']
+        self.config = module.params['config']
         self.name = module.params['name']
         self.retention = module.params['retention']
         self.unit = module.params['unit']
@@ -101,7 +101,7 @@ class Mode(object):
 
     def write(self):
         try:
-            swiftbackmeup_conf = yaml.load(open(self.path, 'r'))
+            swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
         except:
             swiftbackmeup_conf = {}
 
@@ -119,16 +119,16 @@ class Mode(object):
         # set self.changed to False
         swiftbackmeup_conf['modes'] = modes
 
-        with open(self.path, 'w') as conf_file:
+        with open(self.config, 'w') as conf_file:
             conf_file.write(yaml.dump(swiftbackmeup_conf))
 
 
     def remove(self):
-        swiftbackmeup_conf = yaml.load(open(self.path, 'r'))
+        swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
 
         try:
             del swiftbackmeup_conf['modes'][self.name]
-            with open(self.path, 'w') as conf_file:
+            with open(self.config, 'w') as conf_file:
                 conf_file.write(yaml.dump(swiftbackmeup_conf))
         except KeyError:
             self.changed = False
@@ -154,7 +154,7 @@ def main():
     module = AnsibleModule(
         argument_spec=dict(
             state=dict(default='present', choices=['present', 'absent'], type='str'),
-            path=dict(required=False, type='path', default='/etc/swiftbackmeup.conf'),
+            config=dict(required=False, type='path', default='/etc/swiftbackmeup.conf'),
             name=dict(type='str'),
             retention=dict(required=False, type='int'),
             unit=dict(required=False, type='str', choices=['days', 'item'], default='days'),
@@ -165,8 +165,8 @@ def main():
     if not pyyaml_found:
         module.fail_json(msg='the python PyYAML module is required')
 
-    path = module.params['path']
-    base_dir = os.path.dirname(module.params['path'])
+    path = module.params['config']
+    base_dir = os.path.dirname(module.params['config'])
 
     if not os.path.isdir(base_dir):
         module.fail_json(name=base_dir, msg='The directory %s does not exist or the file is not a directory' % base_dir)
