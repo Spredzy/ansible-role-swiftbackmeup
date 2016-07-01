@@ -100,6 +100,11 @@ class Mode(object):
         self.changed = True
 
     def write(self):
+        l_mode = {}
+        for option in ['retention', 'unit', 'pattern']:
+            if getattr(self, option):
+                l_mode[option] = getattr(self, option)
+
         try:
             swiftbackmeup_conf = yaml.load(open(self.config, 'r'))
         except:
@@ -113,17 +118,17 @@ class Mode(object):
         except KeyError:
             modes = {}
 
-        modes[self.name] = {}
-        for option in ['retention', 'unit', 'pattern']:
-            if getattr(self, option):
-                modes[self.name][option] = getattr(self, option)
+        try:
+            if modes[self.name] == l_mode:
+                self.changed = False
+        except KeyError:
+            pass
 
-        # TODO (spredzy): If modes == swiftbackmeup_conf['modes']
-        # set self.changed to False
-        swiftbackmeup_conf['modes'] = modes
-
-        with open(self.config, 'w') as conf_file:
-            conf_file.write(yaml.dump(swiftbackmeup_conf))
+        if self.changed:
+            modes[self.name] = l_mode
+            swiftbackmeup_conf['modes'] = modes
+            with open(self.config, 'w') as conf_file:
+                conf_file.write(yaml.dump(swiftbackmeup_conf))
 
 
     def remove(self):
