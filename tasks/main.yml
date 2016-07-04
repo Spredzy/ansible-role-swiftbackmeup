@@ -24,7 +24,7 @@
 - name: Configure Git items for backups
   swiftbackmeup_git: name={{ item.key }}
                      os_username={{ item.value.os_username | default(None) }}
-                     os_password={{ item.value.password | default(None) }}
+                     os_password={{ item.value.os_password | default(None) }}
                      os_tenant_name={{ item.value.os_tenant_name | default(None) }}
                      os_auth_url={{ item.value.os_auth_url | default(None) }}
                      store_type={{ item.value.store_type | default(None) }}
@@ -48,7 +48,7 @@
 - name: Configure File items for backups
   swiftbackmeup_file: name={{ item.key }}
                       os_username={{ item.value.os_username | default(None) }}
-                      os_password={{ item.value.password | default(None) }}
+                      os_password={{ item.value.os_password | default(None) }}
                       os_tenant_name={{ item.value.os_tenant_name | default(None) }}
                       os_auth_url={{ item.value.os_auth_url | default(None) }}
                       store_type={{ item.value.store_type | default(None) }}
@@ -70,7 +70,7 @@
 - name: Configure PostgreSQL items for backups
   swiftbackmeup_postgresql: name={{ item.key }}
                             os_username={{ item.value.os_username | default(None) }}
-                            os_password={{ item.value.password | default(None) }}
+                            os_password={{ item.value.os_password | default(None) }}
                             os_tenant_name={{ item.value.os_tenant_name | default(None) }}
                             os_auth_url={{ item.value.os_auth_url | default(None) }}
                             store_type={{ item.value.store_type | default(None) }}
@@ -102,7 +102,7 @@
 - name: Configure MariaDB items for backups
   swiftbackmeup_mariadb: name={{ item.key }}
                          os_username={{ item.value.os_username | default(None) }}
-                         os_password={{ item.value.password | default(None) }}
+                         os_password={{ item.value.os_password | default(None) }}
                          os_tenant_name={{ item.value.os_tenant_name | default(None) }}
                          os_auth_url={{ item.value.os_auth_url | default(None) }}
                          store_type={{ item.value.store_type | default(None) }}
