@@ -1,4 +1,12 @@
 ---
+# NOTE(spredzy): To remove once swiftbackmeup is packaged
+- name: Install required dependencies
+  yum: name={{ item }}
+  with_items:
+    - gcc
+    - python-devel
+
+
 - name: Install Swiftbackmeup from Pip
   pip: name=swiftbackmeup
 
