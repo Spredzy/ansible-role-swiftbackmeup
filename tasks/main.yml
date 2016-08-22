@@ -5,6 +5,7 @@
   with_items:
     - gcc
     - python-devel
+    - python-pip
 
 
 - name: Install Swiftbackmeup from Pip
