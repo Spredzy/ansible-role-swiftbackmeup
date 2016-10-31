@@ -143,5 +143,4 @@
         month={{ item.value.month | default('*') }}
         job={{ item.value.job | default('swiftbackmeup backup --mode daily') }}
         state={{ item.value.state | default('present') }}
-  when: '{{ swiftbackmeup_crons is defined }}'
   with_dict: '{{ swiftbackmeup_crons }}'

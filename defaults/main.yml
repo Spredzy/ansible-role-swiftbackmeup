@@ -44,5 +44,7 @@ swiftbackmeup_postgresqls: {}
 #
 swiftbackmeup_mariadbs: {}
 
-
+# Set configuration for the cron module
+#
+swiftbackmeup_crons: {}
 
