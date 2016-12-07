@@ -1,15 +1,13 @@
 ---
-# NOTE(spredzy): To remove once swiftbackmeup is packaged
 - name: Install required dependencies
   yum: name={{ item }}
   with_items:
-    - gcc
-    - python-devel
-    - python-pip
+    - centos-release-openstack
+    - epel-release
 
 
-- name: Install Swiftbackmeup from Pip
-  pip: name=swiftbackmeup
+- name: Install Swiftbackmeup
+  yum: name=swiftbackmeup
 
 
 - name: Configure globals for swiftbackmeup
