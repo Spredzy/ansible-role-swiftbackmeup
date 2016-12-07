@@ -2,7 +2,6 @@
 - name: Install required dependencies
   yum: name={{ item }}
   with_items:
-    - centos-release-openstack
     - epel-release
 
 
