@@ -63,6 +63,8 @@ None.
         value: os_password
       os_tenant_name:
         value: os_tenant_name
+      os_region_name:
+        value: os_region_name
       os_auth_url:
         value: os_auth_url
 
