@@ -32,6 +32,7 @@
                      os_username={{ item.value.os_username | default(None) }}
                      os_password={{ item.value.os_password | default(None) }}
                      os_tenant_name={{ item.value.os_tenant_name | default(None) }}
+                     os_region_name={{ item.value.os_region_name | default(None) }}
                      os_auth_url={{ item.value.os_auth_url | default(None) }}
                      store_type={{ item.value.store_type | default(None) }}
                      create_container={{ item.value.create_container | default(None) }}
@@ -56,6 +57,7 @@
                       os_username={{ item.value.os_username | default(None) }}
                       os_password={{ item.value.os_password | default(None) }}
                       os_tenant_name={{ item.value.os_tenant_name | default(None) }}
+                      os_region_name={{ item.value.os_region_name | default(None) }}
                       os_auth_url={{ item.value.os_auth_url | default(None) }}
                       store_type={{ item.value.store_type | default(None) }}
                       create_container={{ item.value.create_container | default(None) }}
@@ -78,6 +80,7 @@
                             os_username={{ item.value.os_username | default(None) }}
                             os_password={{ item.value.os_password | default(None) }}
                             os_tenant_name={{ item.value.os_tenant_name | default(None) }}
+                            os_region_name={{ item.value.os_region_name | default(None) }}
                             os_auth_url={{ item.value.os_auth_url | default(None) }}
                             store_type={{ item.value.store_type | default(None) }}
                             create_container={{ item.value.create_container | default(None) }}
@@ -110,6 +113,7 @@
                          os_username={{ item.value.os_username | default(None) }}
                          os_password={{ item.value.os_password | default(None) }}
                          os_tenant_name={{ item.value.os_tenant_name | default(None) }}
+                         os_region_name={{ item.value.os_region_name | default(None) }}
                          os_auth_url={{ item.value.os_auth_url | default(None) }}
                          store_type={{ item.value.store_type | default(None) }}
                          create_container={{ item.value.create_container | default(None) }}

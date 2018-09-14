@@ -26,7 +26,7 @@ else:
 
 
 _PROPERTIES = ['name', 'type', 'os_username', 'os_password', 'os_tenant_name',
-               'os_auth_url', 'store_type', 'create_container',
+               'os_auth_url', 'os_region_name', 'store_type', 'create_container',
                'purge_container', 'swift_container', 'swift_pseudo_folder',
                'output_directory', 'clean_local_copy', 'backup_filename',
                'backup_filename_prefix', 'backup_filename_suffix',
@@ -89,6 +89,7 @@ class Item(object):
         self.os_username = module.params['os_username']
         self.os_password = module.params['os_password']
         self.os_tenant_name = module.params['os_tenant_name']
+        self.os_region_name = module.params['os_region_name']
         self.os_auth_url = module.params['os_auth_url']
         self.store_type = module.params['store_type']
         self.create_container = module.params['create_container']
@@ -186,6 +187,7 @@ def main():
             os_username=dict(required=False, type='str'),
             os_password=dict(required=False, type='str'),
             os_tenant_name=dict(required=False, type='str'),
+            os_region_name=dict(required=False, type='str'),
             os_auth_url=dict(required=False, type='str'),
             store_type=dict(required=False, type='str'),
             create_container=dict(required=False, type='str'),
